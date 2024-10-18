@@ -273,7 +273,7 @@ startInstall()
         echo "##########################################"
         echo "###     Install NGinX Proxy Manager    ###"
         echo "##########################################"
-    
+        docker network create my-main-net
         # pull an nginx proxy manager docker-compose file from github
         echo "    1. Pulling a default NGinX Proxy Manager docker-compose.yml file."
 
