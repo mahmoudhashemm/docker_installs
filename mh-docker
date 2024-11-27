@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# تحديث وترقية النظام
+echo "Updating and upgrading the system..."
+sudo apt update && sudo apt upgrade -y
+
+# تثبيت Docker
+echo "Installing Docker prerequisites..."
+sudo apt install -y apt-transport-https ca-certificates curl software-properties-common wget git
+
+echo "Adding Docker GPG key..."
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo "Adding Docker repository..."
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+echo "Updating package list..."
+sudo apt update
+
+echo "Installing Docker..."
+sudo apt install -y docker-ce docker-ce-cli containerd.io
+
+echo "Starting and enabling Docker service..."
+sudo systemctl start docker
+sudo systemctl enable docker
+
+echo "Checking Docker version..."
+docker --version
+
+# إضافة المستخدم إلى مجموعة Docker
+echo "Adding current user to the Docker group..."
+sudo usermod -aG docker $USER
+
+# تحميل التغييرات الحالية للمجموعة
+echo "Applying group changes without logout..."
+newgrp docker
+
+# تثبيت Docker Compose
+echo "Installing Docker Compose..."
+sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+# تثبيت Portainer
+echo "Setting up Portainer..."
+sudo mkdir -p /opt/portainer/data
+docker run -d \
+  -p 8000:8000 \
+  -p 9505:9505 \
+  --name=portainer \
+  --restart=always \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /opt/portainer/data:/data \
+  portainer/portainer-ce:latest
+
+# تشغيل Portainer Agent
+echo "Setting up Portainer Agent..."
+docker run -d \
+  --name portainer_agent \
+  --restart=always \
+  -p 9021:9021 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /var/lib/docker/volumes:/var/lib/docker/volumes \
+  portainer/agent
+
+# إنشاء شبكة Docker
+echo "Creating Docker network..."
+docker network create my-main-net
+
+# إعداد Nginx Proxy Manager
+echo "Setting up Nginx Proxy Manager..."
+sudo mkdir -p /opt/docker/nginx-proxy-manager
+cd /opt/docker/nginx-proxy-manager
+curl https://raw.githubusercontent.com/mahmoudhashemm/docker_installs/refs/heads/main/docker_compose.nginx_proxy_manager.yml -o docker-compose.yml
+docker-compose up -d
+
+echo "Setup completed successfully!"
