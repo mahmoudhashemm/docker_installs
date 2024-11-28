@@ -1,0 +1,18 @@
+version: "2.1"
+services:
+  duplicati:
+    image: duplicati/duplicati
+    container_name: duplicati2
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Africa/Cairo
+      - CLI_ARGS= #optional
+    ports:
+      - 8200:8200
+    volumes:
+      - /some/path:/some/path
+      - ./config:/config
+      - /mnt/backup/:/backups
+      - /opt/:/source
+    restart: unless-stopped
