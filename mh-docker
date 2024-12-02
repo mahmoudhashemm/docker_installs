@@ -33,7 +33,7 @@ sudo usermod -aG docker $USER
 
 # تحميل التغييرات الحالية للمجموعة
 echo "Applying group changes without logout..."
-newgrp docker
+#newgrp docker
 
 # تثبيت Docker Compose
 echo "Installing Docker Compose..."
