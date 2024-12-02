@@ -1,0 +1,19 @@
+2. استخدام أداة pg_restore
+تُستخدم أداة pg_restore لاستعادة قواعد البيانات الكبيرة، خاصة إذا كانت قاعدة البيانات مضغوطة باستخدام صيغة .dump أو .tar.
+
+الأمر الرئيسي:
+
+bash
+Copy code
+pg_restore -U <db_user> -d <db_name> -h <host> -p <port> <path_to_dump_file>
+<db_user>: اسم المستخدم في PostgreSQL.
+<db_name>: اسم قاعدة البيانات التي تريد استعادتها.
+<host>: عنوان الخادم (عادةً localhost إذا كنت على نفس الجهاز).
+<port>: المنفذ الافتراضي لـ PostgreSQL هو 5432.
+<path_to_dump_file>: المسار الكامل لملف النسخة الاحتياطية.
+
+
+-----------
+
+createdb -U <db_user> <db_name>
+pg_restore -U <db_user> -d <db_name> -h <host> -p <port> <path_to_dump_file>
