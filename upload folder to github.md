@@ -55,3 +55,24 @@ git add .
 git commit -m "Resolved merge conflicts"
 git push -u origin main
 ```
+
+
+لرفع الملفات على برانش جديد اسمه ahmed، يمكنك اتباع الخطوات التالية:
+
+انتقل إلى المجلد الخاص بمشروعك، ثم قم بإنشاء برانش جديد اسمه ahmed باستخدام الأمر:
+
+2. التبديل إلى البرانش الجديد
+3.  
+بعد إنشاء البرانش، قم بالتبديل إليه:
+
+
+```
+git checkout -b ahmed
+```
+```
+git add .
+git commit -m "Adding files to branch ahmed"
+```
+```
+git push -u origin ahmed
+```
