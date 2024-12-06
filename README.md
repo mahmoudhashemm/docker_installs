@@ -94,4 +94,18 @@ docker push myusername/odoo_backup:v1
 ![image](https://github.com/user-attachments/assets/2456c15c-1b4a-4ddf-92d5-20c5d51cb080)
 
 
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+
+git clone --depth 1 --branch main git@github.com:mahmoudhashemm/odoo17pro
+
+Copy this script and run it on your terminal ./odoo-bin -w a -s -c ../odoo.conf --stop-after-init
+
+./odoo-bin -w a -s -c /etc/odoo/odoo.conf --stop-after-init
+
+docker-compose up -d
+
+sudo apt install build-essential python3-dev libldap2-dev libsasl2-dev libssl-dev
+
+pip3 install -r https://raw.githubusercontent.com/odoo/odoo/refs/heads/18.0/requirements.txt
 
