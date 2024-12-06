@@ -18,41 +18,74 @@ I got tired of running individual commands all the time, so I created some scrip
 ## Prompts from the script:
 First, you'll be prompted to select the number for your OS / Distro.  Currently I support CentOS 7 and 8, Debian 10 and 11, Ubuntu 18.04, 20.04, 22.04, Arch Linux. 
 
-Next, you'll be asked to answer "y" to any of the four software packages you'd like to install. 
-- Docker-CE
-- Docker-Compose
-- NGinx Proxy Manager
-- Navidrome (music player))
-- Portainer-CE
-  - if you answer y to Portainer, you'll be asked another question
+To clear all unused Docker images, you can use the following command:
 
-Do you want 
-  1. full Portainer-CE with the web UI, or 
-  2. just Portainer-agent (which you connect to another full portainer instance). 
+bash
+Copy code
+``` bash
+docker image prune -a
 
-Make that selection, and the install will continue.
+```
+* لديك Container يعمل باسم odoo_17_container وأردت حفظه كـ Image جديدة:
+  
+``` bash
+docker ps
 
-Answering "n" to any of them will cause them to be skipped.
+```
 
-### NOTE
-* You must have Docker-CE (or some version of Docker) installed in order to run any of the other three packages.
-* You must have Docker-Compose installed in order to run NGinX Proxy Manager.
+لنفرض أن الـ Container ID هو a1b2c3d4e5.
 
-Before prompting to install Docker or Docker-Compose, I do try to see if you already have them installed, and I skip the prompt if you do (or I try to anyway).
 
-## Recent changes
-1. Removed the docker-grafana-speedtest as it seems broken with recent updated installs.
-2. attempted to add the install of Curl, WGet, and Git in the script for those who may not already have them.
+قم بإنشاء الـ Image:
+``` bash
+docker commit a1b2c3d4e5 odoo_backup:v1
 
-## Future Work
-- [ ] Make it work for Raspberry Pi
-- [X] Make it work for Arch
-- [ ] Make it work for OpenSuse
-- [ ] Maybe add a few other default containers to pull down and start running
-- [ ] Prompt for Credentials to use in NGinX Proxy Manager db settings vs. using the defaults.
+```
 
-## Contributing
-If you find issues, please let me know. I'm always open to new contributors helping me add Distro support, more software packages, etc.  Just clone the project and make a pull request with any changes you add. 
+رفعها علي دوكر هب
 
-## Licensing
-My script is offered without warranty against defect, and is free for you to use any way / time you want.  You may modify it in any way you see fit.  Please see the individual project pages of the software packages for their licensing.
+
+1. التأكد من تسجيل الدخول إلى Docker Hub:
+
+قم بتسجيل الدخول إلى Docker Hub باستخدام الأمر التالي:
+
+``` bash
+docker login
+
+```
+
+2. إعادة تسمية الـ Image لتكون متوافقة مع Docker Hub:
+
+يجب أن تحتوي الـ Image على التنسيق التالي:
+
+
+``` bash
+username/repository_name:tag
+```
+
+username: اسم المستخدم الخاص بك على Docker Hub.
+repository_name: اسم المستودع (repository) الذي ستقوم بإنشائه على Docker Hub.
+tag: الإصدار (يمكنك استخدام أي تسمية مثل latest أو رقم إصدار مثل v1).
+لإعادة تسمية الـ Image، استخدم الأمر:
+
+``` bash
+docker tag local_image_name username/repository_name:tag
+
+```
+
+مثال 
+
+``` bash
+docker tag odoo_backup:v1 myusername/odoo_backup:v1
+```
+
+3. رفع الـ Image إلى Docker Hub:
+
+استخدم الأمر التالي لرفع الـ Image:
+
+``` bash
+docker push username/repository_name:tag
+مثال 
+docker push myusername/odoo_backup:v1
+
+```
