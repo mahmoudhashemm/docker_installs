@@ -89,3 +89,9 @@ docker push username/repository_name:tag
 docker push myusername/odoo_backup:v1
 
 ```
+![image](https://github.com/user-attachments/assets/5f95e8d0-4b31-4177-8029-f49a7dcbf2e6)
+![image](https://github.com/user-attachments/assets/ce8c9f7c-3820-4387-a8e4-1329f40f6ec6)
+![image](https://github.com/user-attachments/assets/2456c15c-1b4a-4ddf-92d5-20c5d51cb080)
+
+
+
