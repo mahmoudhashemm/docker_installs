@@ -8,10 +8,10 @@ sudo apt install git
 2. إعداد Git لأول مرة
 إذا كنت تستخدم Git لأول مرة، قم بتعريف اسم المستخدم والبريد الإلكتروني الخاص بك:
 
-`
+```
 git config --global user.name "اسمك"
 git config --global user.email "بريدك الإلكتروني"
-`
+```
 3. إنشاء مستودع (Repository) على GitHub
 افتح موقع GitHub.
 قم بتسجيل الدخول إلى حسابك.
@@ -22,36 +22,36 @@ git config --global user.email "بريدك الإلكتروني"
 4. الانتقال إلى الفولدر المراد رفعه
 استخدم الأمر التالي للانتقال إلى المجلد الذي تريد رفعه:
 
-`
+```
 cd /path/to/your/folder
-`
+```
 5. تهيئة المستودع المحلي
 قم بتهيئة المجلد كمستودع Git:
 
-`
+```
 git init
-`
+```
 6. إضافة الملفات إلى المستودع
 لإضافة جميع الملفات داخل المجلد إلى مستودع Git:
 
-`
+```
 git add .
-`
+```
 7. إنشاء أول تعهد (Commit)
 قم بإنشاء أول تعهد يحتوي على الملفات التي أضفتها:
 
-`
+```
 git commit -m "Initial commit"
-`
+```
 8. ربط المستودع المحلي بـ GitHub
 انسخ الرابط الخاص بالمستودع من صفحة GitHub (عادة يكون بالشكل التالي: https://github.com/username/repository.git) واستخدم الأمر:
 
-`
+```
 git remote add origin https://github.com/username/repository.git
-`
-`
+```
+```
 git pull origin main --rebase
 git add .
 git commit -m "Resolved merge conflicts"
 git push -u origin main
-`
+```
