@@ -27,3 +27,7 @@ CREATE DATABASE my_database WITH OWNER odoo;
 ```
 psql -U odoo my_database < /backup.sql
 ```
+see all database 
+```
+\l
+```
