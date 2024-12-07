@@ -61,4 +61,4 @@ cd /opt/docker/nginx-proxy-manager
 curl https://raw.githubusercontent.com/mahmoudhashemm/docker_installs/refs/heads/main/docker_compose.nginx_proxy_manager.yml -o docker-compose.yml
 docker-compose up -d
 
-echo "Setup completed successfully!"
+echo "Setup completed successfully!  -  admin@example.com  -  changeme "
