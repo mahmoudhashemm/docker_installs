@@ -35,3 +35,9 @@ see all database
 ```
 exit
 ```
+
+نسخ ملف من خارج الحاويه لداخل الحاويه 
+
+```
+docker cp /home/user/example.txt اسم-الحاوية:/app
+```
