@@ -109,3 +109,38 @@ sudo apt install build-essential python3-dev libldap2-dev libsasl2-dev libssl-de
 
 pip3 install -r https://raw.githubusercontent.com/odoo/odoo/refs/heads/18.0/requirements.txt
 
+
+/تعديل اسم فولدر علي جيت هاب
+
+
+نسخ المستودع إلى جهازك المحلي: افتح الطرفية (Terminal) أو واجهة Git Bash، واستخدم الأمر التالي لاستنساخ المستودع:
+
+```
+git clone <repository-url>
+```
+استبدل <repository-url> برابط المستودع الخاص بك.
+
+الدخول إلى المجلد المستنسخ:
+
+```
+cd <repository-folder>
+```
+تغيير اسم الفولدر:
+
+قم بتغيير اسم الفولدر باستخدام الأمر التالي (أو مباشرة من مدير الملفات على جهازك):
+```
+mv old-folder-name new-folder-name
+```
+استبدل old-folder-name باسم الفولدر الحالي وnew-folder-name بالاسم الجديد.
+تحديث Git بالتغيير: بعد تغيير اسم الفولدر، عليك تحديث التغييرات في المستودع:
+
+```
+git add -A
+git commit -m "Renamed folder from old-folder-name to new-folder-name"
+```
+دفع التغييرات إلى GitHub: ادفع التغييرات إلى المستودع البعيد:
+
+```
+git push
+```
+
