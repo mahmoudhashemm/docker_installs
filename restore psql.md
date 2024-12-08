@@ -7,7 +7,7 @@ docker exec -it اسم_حاوية_قاعدة_البيانات bash
 افتح واجهة PostgreSQL:
 
 ```
-psql -U odoo
+psql -U odoo -d template1
 ```
 أنشئ قاعدة بيانات فارغة:
 
