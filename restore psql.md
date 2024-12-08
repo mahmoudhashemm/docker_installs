@@ -8,6 +8,10 @@ docker exec -it اسم_حاوية_قاعدة_البيانات bash
 
 ```
 psql -U odoo -d template1
+
+or
+
+psql -U odoo -d postgres
 ```
 أنشئ قاعدة بيانات فارغة:
 
