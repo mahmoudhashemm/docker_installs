@@ -7,7 +7,7 @@ BACKUP_DIR="${BACKUP_DIR:-/opt/backups}"
 read -p "Enter the database container name (e.g., odoo-gemy2_db_1) [default: odoo-gemy2_db_1]: " DB_CONTAINER
 DB_CONTAINER="${DB_CONTAINER:-odoo-gemy2_db_1}"
 
-read -p "Enter the Odoo container name (e.g., odoo-gemy2) [default: odoo-gemy2]: " ODOO_CONTAINER
+read -p "Enter the Odoo container name (e.g., odoo-gemy2) [default: odoo-gemy2_odoo16_1]: " ODOO_CONTAINER
 ODOO_CONTAINER="${ODOO_CONTAINER:-odoo-gemy2_odoo16_1}"
 
 read -p "Enter the database name (e.g., eta1.osloop.org) [default: eta1.osloop.org]: " DB_NAME
@@ -16,15 +16,15 @@ DB_NAME="${DB_NAME:-eta1.osloop.org}"
 read -p "Enter the database user (e.g., odoo) [default: odoo]: " DB_USER
 DB_USER="${DB_USER:-odoo}"
 
-read -p "Enter the database stack (e.g., odoo-one) [default: odoo-one]: " DB_stack
+read -p "Enter the database stack (e.g., odoo-one) [default: odoo-gemy2]: " DB_stack
 DB_stack="${DB_stack:-odoo-gemy2}"
 
 # إعداد المتغيرات
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-DB_BACKUP="${BACKUP_DIR}/db_backup_${DB_stack}_${TIMESTAMP}.backup"
+DB_BACKUP="${BACKUP_DIR}/db_backup.backup"
 FILESTORE_PATH="/opt/${DB_stack}/etc/filestore/${DB_NAME}"
-FILESTORE_BACKUP="${BACKUP_DIR}/filestore_${TIMESTAMP}"
-FULL_BACKUP="${BACKUP_DIR}/odoo_full_backup_${TIMESTAMP}.tar.gz"
+FILESTORE_BACKUP="${BACKUP_DIR}/filestore"
+FULL_BACKUP="${BACKUP_DIR}/odoo_full_backup_${DB_stack}_${TIMESTAMP}.tar.gz"
 
 # إنشاء مجلد النسخة الاحتياطية إذا لم يكن موجودًا
 mkdir -p "${BACKUP_DIR}"
@@ -57,7 +57,7 @@ fi
 
 # ضغط النسخة الاحتياطية الشاملة
 echo "Creating full backup archive..."
-tar -czvf "${FULL_BACKUP}" -C "${BACKUP_DIR}" "db_backup_${DB_stack}_${TIMESTAMP}.backup" "filestore_${TIMESTAMP}"
+tar -czvf "${FULL_BACKUP}" -C "${BACKUP_DIR}" "db_backup.backup" "filestore"
 if [ $? -eq 0 ]; then
     echo "Full backup archive created at: ${FULL_BACKUP}"
 else
