@@ -6,9 +6,9 @@
 # تحديد المجلد الافتراضي
 BACKUP_DIR="${BACKUP_DIR:-/opt/backups}"
 
-# البحث عن الملفات التي تنتهي بـ .tar.gz
+# البحث عن الملفات التي تنتهي بـ .tar.gz وترتيبها من الأحدث إلى الأقدم
 echo "Searching for .tar.gz files in $BACKUP_DIR..."
-FILES=($(find "$BACKUP_DIR" -type f -name "*.tar.gz"))
+FILES=($(find "$BACKUP_DIR" -type f -name "*.tar.gz" -exec ls -t {} +))
 
 # التحقق إذا كانت هناك ملفات
 if [ ${#FILES[@]} -eq 0 ]; then
@@ -26,6 +26,7 @@ select BACKUP_FILE in "${FILES[@]}"; do
     echo "Invalid selection. Please try again."
   fi
 done
+
 
 
 read -p "Enter the database container name (e.g., odoo-gemy2_db_1) [default: odoo-gemy2_db_1]: " DB_CONTAINER
