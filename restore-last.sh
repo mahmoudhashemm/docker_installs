@@ -1,11 +1,8 @@
 #!/bin/bash
 
-# طلب إدخال البيانات من المستخدم
-#!/bin/bash
-
-#!/bin/bash
-
 # تحديد المجلد الافتراضي
+# طلب من المستخدم إدخال مسار المجلد
+read -p "Please enter the backup directory (default is /opt/backups): " BACKUP_DIR
 BACKUP_DIR="${BACKUP_DIR:-/opt/backups}"
 
 # البحث عن الملفات التي تنتهي بـ .tar.gz وترتيبها من الأحدث إلى الأقدم
@@ -35,6 +32,7 @@ while true; do
     echo "Invalid selection. Please try again."
   fi
 done
+
 
 
 
