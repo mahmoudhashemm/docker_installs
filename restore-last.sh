@@ -3,6 +3,8 @@
 # طلب إدخال البيانات من المستخدم
 #!/bin/bash
 
+#!/bin/bash
+
 # تحديد المجلد الافتراضي
 BACKUP_DIR="${BACKUP_DIR:-/opt/backups}"
 
@@ -18,14 +20,22 @@ fi
 
 # عرض الملفات للمستخدم لاختيار أحدها
 echo "Found the following .tar.gz files:"
-select BACKUP_FILE in "${FILES[@]}"; do
-  if [ -n "$BACKUP_FILE" ]; then
+for i in "${!FILES[@]}"; do
+  echo "$((i + 1)). ${FILES[$i]}"
+done
+
+# طلب اختيار الملف من المستخدم
+while true; do
+  read -p "Please select a backup file by number: " SELECTED
+  if [[ "$SELECTED" =~ ^[0-9]+$ ]] && [ "$SELECTED" -ge 1 ] && [ "$SELECTED" -le "${#FILES[@]}" ]; then
+    BACKUP_FILE="${FILES[$((SELECTED - 1))]}"
     echo "You selected: $BACKUP_FILE"
     break
   else
     echo "Invalid selection. Please try again."
   fi
 done
+
 
 
 
