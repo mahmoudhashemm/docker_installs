@@ -242,7 +242,78 @@ location /.well-known/acme-challenge/ {
     return 301 https://$host$request_uri;
   }
 ```
+
+
+
 ولا تنسي بردك الامر لتنفيز الشهاده ل سيرفر واحد 
 ```
 sudo certbot --nginx -d test20.osloop.site
 ```
+ليصبح الشكل النهائي 
+```
+# odoo server upstreams
+upstream odoo {
+  server 127.0.0.1:10019;
+}
+upstream odoochat {
+  server 127.0.0.1:20018;
+}
+
+map $http_upgrade $connection_upgrade {
+  default upgrade;
+  ''      close;
+}
+
+# HTTP Server Block (مهم قبل استخراج الشهادة)
+server {
+  listen 80;
+  server_name test20.osloop.site;
+  rewrite ^(.*) https://$host$1 permanent;
+  
+}
+
+# HTTPS Server Block (هتشتغل بعد استخراج الشهادة)
+server {
+  listen 443 ssl;
+  server_name test20.osloop.site;
+
+  proxy_read_timeout 720s;
+  proxy_connect_timeout 720s;
+  proxy_send_timeout 720s;
+
+  # SSL certs – هتشتغل بعد ما تعمل Certbot
+  ssl_certificate /etc/letsencrypt/live/test20.osloop.site/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/test20.osloop.site/privkey.pem;
+  include /etc/letsencrypt/options-ssl-nginx.conf;
+  ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+  # Logs
+  access_log /var/log/nginx/odoo.access.log;
+  error_log /var/log/nginx/odoo.error.log;
+
+  # WebSocket for Odoo
+  location /websocket {
+    proxy_pass http://odoochat;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
+    proxy_set_header X-Forwarded-Host $http_host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Real-IP $remote_addr;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
+    proxy_cookie_flags session_id samesite=lax secure;
+  }
+
+  # Odoo Backend
+  location / {
+    proxy_pass http://odoo;
+    proxy_set_header X-Forwarded-Host $http_host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_redirect off;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
+    proxy_cookie_flags session_id samesite=lax secure;
+  }
+```
+ليصبح الشكل النهائي 
