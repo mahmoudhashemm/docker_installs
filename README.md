@@ -317,3 +317,8 @@ server {
   }
 ```
 ليصبح الشكل النهائي 
+
+لعمل سيت اب ملف دوكر ولكن باسم مختلف 
+```
+docker compose -f docker_compose.nginx_proxy_manager.yml up -d
+```
