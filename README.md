@@ -322,3 +322,23 @@ server {
 ```
 docker compose -f docker_compose.nginx_proxy_manager.yml up -d
 ```
+
+
+install all docker compose file in one time
+يتم وضع الملف داخل الملف الى بداخله الحاويات كلها 
+
+```
+# داخل المسار الذي يحتوي المجلدات (cd /PATH/TO/PROJECTS)
+for dir in */ ; do
+  compose_file="$dir/docker-compose.yml"
+  [ -f "$compose_file" ] || compose_file="$dir/docker-compose.yaml"
+  if [ -f "$compose_file" ]; then
+    project="$(basename "$dir")"          # use folder name as project name
+    echo "▶️  تشغيل $project"
+    docker compose -p "$project" -f "$compose_file" up -d
+  else
+    echo "⚠️  لا يوجد ملف Compose في $dir ــ تَخطٍّ"
+  fi
+done
+
+```
