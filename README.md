@@ -342,3 +342,7 @@ for dir in */ ; do
 done
 
 ```
+copy
+```
+rsync -avz /home/user/Documents/ myuser@192.168.1.10:/home/myuser/Backup/
+```
