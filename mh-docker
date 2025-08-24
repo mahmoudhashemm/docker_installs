@@ -55,10 +55,10 @@ echo "Creating Docker network..."
 docker network create my-main-net
 
 # إعداد Nginx Proxy Manager
-echo "Setting up Nginx Proxy Manager..."
-sudo mkdir -p /opt/docker/nginx-proxy-manager
-cd /opt/docker/nginx-proxy-manager
-curl https://raw.githubusercontent.com/mahmoudhashemm/docker_installs/refs/heads/main/docker_compose.nginx_proxy_manager.yml -o docker-compose.yml
+# echo "Setting up Nginx Proxy Manager..."
+# sudo mkdir -p /opt/docker/nginx-proxy-manager
+# cd /opt/docker/nginx-proxy-manager
+# curl https://raw.githubusercontent.com/mahmoudhashemm/docker_installs/refs/heads/main/docker_compose.nginx_proxy_manager.yml -o docker-compose.yml
 docker-compose up -d
 
 echo "Setup completed successfully!  -  admin@example.com  -  changeme "
